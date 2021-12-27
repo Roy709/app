@@ -1,15 +1,47 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+      <img alt="Vue logo" src="./assets/logo.png">
+      <form  @submit.prevent="createPost">
+        <div>
+        <label for="id">Id</label>
+        <input type="text" id="id" v-model="formData.id">
+        </div>
+        <div>
+        <label for="title">Id</label>
+        <input type="text" id="title" v-model="formData.title">
+        </div>
+        <div>
+        <label for="id">body</label>
+        <input type="text" id="body" v-model="formData.body">
+        </div>
+      </form>
+      <button>Add data</button>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import axios from 'axios'
 export default {
   name: 'App',
   components: {
-    HelloWorld
+
+  },
+  data(){
+    return{
+      FormData:{
+        id:'',
+        title:'',
+        body:''
+      }
+    }
+  },
+  methods:{
+    createPost(){
+      axios
+      .post('https://jsonplaceholder.typicode.com/posts', this.formData)
+      .then(response => console.log(response))
+      .catch(error => console.log(error))
+    }
   }
 }
 </script>
